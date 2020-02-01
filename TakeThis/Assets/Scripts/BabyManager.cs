@@ -9,6 +9,8 @@ public class BabyManager : MonoBehaviour
     public float TimeToFullySad = 60.0f;
     public float PatTimer = 1.0f;
     public float HugTimer = 20.0f;
+    public Sprite[] Faces;
+
 
     public int PatBonus = 1;
     public int HugBonus = 10;
