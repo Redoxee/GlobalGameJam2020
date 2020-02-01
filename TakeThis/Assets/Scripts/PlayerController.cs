@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
         if (direction.sqrMagnitude > 0)
         {
-            this.PlayerRigidBody.velocity = direction * this.Speed;
+            this.PlayerRigidBody.velocity += direction * this.Speed;
         }
     }
 }
