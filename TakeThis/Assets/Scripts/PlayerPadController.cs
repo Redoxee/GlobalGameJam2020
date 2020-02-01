@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerPadController : MonoBehaviour
 {
+    public Character chatacter = null;
+
     public Rigidbody2D PlayerRigidBody = null;
     public float Speed;
     public void LateUpdate()
@@ -12,5 +14,10 @@ public class PlayerPadController : MonoBehaviour
         float iy = Input.GetAxis("Vertical");
 
         this.PlayerRigidBody.velocity += new Vector2(ix, iy) * Speed;
+
+        if (Input.GetButtonDown("Take"))
+        {
+            this.chatacter.CallToActionTackable();
+        }
     }
 }
