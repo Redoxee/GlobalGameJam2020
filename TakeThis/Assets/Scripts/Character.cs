@@ -9,6 +9,26 @@ public class Character : MonoBehaviour
     private List<GameObject> availableTackable = new List<GameObject>();
     private GameObject LastTackableMet = null;
     private GameObject CurrentHeld = null;
+    private Vector3 WantedRelativePos = new Vector3(0, 1,0);
+    private float deadLift = .005f;
+    private Vector3 wantedVelocity = Vector3.zero;
+
+    private void Update()
+    {
+        if (this.CurrentHeld != null)
+        {
+            Vector3 localPos = this.CurrentHeld.transform.localPosition;
+            if ((localPos - this.WantedRelativePos).sqrMagnitude > this.deadLift)
+            {
+                Vector3 dampedPos = Vector3.SmoothDamp(localPos, this.WantedRelativePos, ref this.wantedVelocity, .25f, 20.0f, Time.deltaTime);
+                this.CurrentHeld.transform.localPosition = dampedPos;
+            }
+            else
+            {
+                this.wantedVelocity = Vector3.zero;
+            }
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -54,12 +74,14 @@ public class Character : MonoBehaviour
             {
                 this.CurrentHeld = this.LastTackableMet;
                 this.LastTackableMet.transform.SetParent(this.transform, true);
+                this.wantedVelocity = Vector3.zero;
             }
         }
         else
         {
             this.CurrentHeld.transform.SetParent(this.WorldTransform, true);
             this.CurrentHeld = null;
+            this.wantedVelocity = Vector3.zero;
         }
     }
 }
