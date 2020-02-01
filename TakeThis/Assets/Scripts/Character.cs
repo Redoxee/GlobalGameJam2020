@@ -13,6 +13,9 @@ public class Character : MonoBehaviour
     private float deadLift = .005f;
     private Vector3 wantedVelocity = Vector3.zero;
 
+    private Baby LastBabyMet = null;
+    private List<Baby> availableBaby = new List<Baby>();
+
     private void Update()
     {
         if (this.CurrentHeld != null)
@@ -39,30 +42,54 @@ public class Character : MonoBehaviour
             this.LastTackableMet = otherObject;
             this.availableTackable.Add(otherObject);
         }
+
+        Baby baby = otherObject.GetComponent<Baby>();
+        if (baby != null && !this.availableBaby.Contains(baby))
+        {
+            this.availableBaby.Add(baby);
+            this.LastBabyMet = baby;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         GameObject otherObject = other.gameObject;
         Tackable otherTackable = otherObject.GetComponent<Tackable>();
-        if (otherTackable == null)
+        if (otherTackable != null)
         {
-            return;
+            if (this.LastTackableMet == otherTackable)
+            {
+                this.LastTackableMet = null;
+            }
+
+            if (this.availableTackable.Contains(otherObject))
+            {
+                this.availableTackable.Remove(otherObject);
+            }
+
+            if (this.LastTackableMet == null && this.availableTackable.Count > 0)
+            {
+                this.LastTackableMet = this.availableTackable[0];
+            }
         }
 
-        if (this.LastTackableMet == otherTackable)
+        Baby baby = otherObject.GetComponent<Baby>();
+        if(baby != null)
         {
-            this.LastTackableMet = null;
-        }
+            if (this.LastBabyMet == baby)
+            {
+                this.LastBabyMet = null;
+            }
 
-        if (this.availableTackable.Contains(otherObject))
-        {
-            this.availableTackable.Remove(otherObject);
-        }
+            if (this.availableBaby.Contains(baby))
+            {
+                this.availableBaby.Remove(baby);
+            }
 
-        if (this.LastTackableMet == null && this.availableTackable.Count > 0)
-        {
-            this.LastTackableMet = this.availableTackable[0];
+            if (this.availableBaby.Count > 0)
+            {
+                this.LastBabyMet = this.availableBaby[0];
+            }
         }
     }
 
@@ -82,6 +109,40 @@ public class Character : MonoBehaviour
             this.CurrentHeld.transform.SetParent(this.WorldTransform, true);
             this.CurrentHeld = null;
             this.wantedVelocity = Vector3.zero;
+        }
+    }
+
+    public void CallToActionPat()
+    {
+        if (this.LastBabyMet == null)
+        {
+            return;
+        }
+
+        int numberOfbaby = this.availableBaby.Count;
+        for (int index = 0; index < numberOfbaby; ++index)
+        {
+            if (this.availableBaby[index].PatPat())
+            {
+                break;
+            }
+        }
+    }
+
+    public void CallToActionHug()
+    {
+        if (this.LastBabyMet == null)
+        {
+            return;
+        }
+
+        int numberOfbaby = this.availableBaby.Count;
+        for (int index = 0; index < numberOfbaby; ++index)
+        {
+            if (this.availableBaby[index].Hug())
+            {
+                break;
+            }
         }
     }
 }

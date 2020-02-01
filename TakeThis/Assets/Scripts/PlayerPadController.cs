@@ -19,5 +19,15 @@ public class PlayerPadController : MonoBehaviour
         {
             this.chatacter.CallToActionTackable();
         }
+
+        if (Input.GetButtonDown("PatPat"))
+        {
+            this.chatacter.CallToActionPat();
+        }
+
+        if (Input.GetButtonDown("Hug"))
+        {
+            this.chatacter.CallToActionHug();
+        }
     }
 }
