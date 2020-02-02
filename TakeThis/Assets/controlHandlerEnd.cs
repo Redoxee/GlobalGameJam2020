@@ -86,6 +86,30 @@ public class controlHandlerEnd : MonoBehaviour
             Baby_B_6.GetComponent<Image>().sprite = R;
             Baby_B_6pH.GetComponent<Image>().sprite = R;
         }
+
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.B) || Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.R) || Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.G) || Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W))
+        {
+            CtrlWheel_A.GetComponent<Image>().sprite = E;
+            CtrlWheel_Ag.GetComponent<Image>().sprite = E;
+            CtrlWheel_ApH.GetComponent<Image>().sprite = E;
+            CtrlWheel_B.GetComponent<Image>().sprite = R;
+            CtrlWheel_X.GetComponent<Image>().sprite = F;
+            Baby_B_0.GetComponent<Image>().sprite = R;
+            Baby_B_0pH.GetComponent<Image>().sprite = R;
+            Baby_B_1.GetComponent<Image>().sprite = R;
+            Baby_B_1pH.GetComponent<Image>().sprite = R;
+            Baby_B_2.GetComponent<Image>().sprite = R;
+            Baby_B_2pH.GetComponent<Image>().sprite = R;
+            Baby_B_3.GetComponent<Image>().sprite = R;
+            Baby_B_3pH.GetComponent<Image>().sprite = R;
+            Baby_B_4.GetComponent<Image>().sprite = R;
+            Baby_B_4pH.GetComponent<Image>().sprite = R;
+            Baby_B_5.GetComponent<Image>().sprite = R;
+            Baby_B_5pH.GetComponent<Image>().sprite = R;
+            Baby_B_6.GetComponent<Image>().sprite = R;
+            Baby_B_6pH.GetComponent<Image>().sprite = R;
+        }
+
     }
 
 }
