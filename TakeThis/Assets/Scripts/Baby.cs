@@ -23,6 +23,7 @@ public class Baby : MonoBehaviour
     public ParticleSystem HappyFx = null;
     public ParticleSystem TearsFx = null;
     public ParticleSystem UpFx = null;
+    public ParticleSystem SuperCryFx = null;
 
     public float superCryTimer;
 
@@ -34,6 +35,7 @@ public class Baby : MonoBehaviour
         this.HappyFx = this.transform.Find("FX_Happy").GetComponent<ParticleSystem>();
         this.TearsFx = this.transform.Find("FX tear").GetComponent<ParticleSystem>();
         this.UpFx = this.transform.Find("FX_up1").GetComponent<ParticleSystem>();
+        this.SuperCryFx = this.transform.Find("FX_Laugh_SuperCry").GetComponent<ParticleSystem>();
     }
 
     private void Update()
@@ -83,7 +85,7 @@ public class Baby : MonoBehaviour
             if (this.superCryTimer < 0)
             {
                 this.StartSuperCry();
-
+                this.SuperCryFx.Play();
                 Collider2D[] results = Physics2D.OverlapCircleAll(this.transform.position, this.manager.SuperCryRadius);
                 for (int index = 0; index < results.Length; ++index)
                 {
