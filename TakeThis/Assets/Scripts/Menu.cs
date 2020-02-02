@@ -9,18 +9,16 @@ public class Menu : MonoBehaviour {
     public Text text;
     public bool isBlinking = true;
 
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine("BlinkingText");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetButtonDown("PatPat") || Input.GetKeyDown(KeyCode.A))
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("GameScene");
         }
     }
 
