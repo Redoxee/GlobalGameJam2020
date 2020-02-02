@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5005,27 +5005,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 758761326108115588, guid: c31e31eed75ad5f458341913c916c969,
-        type: 3}
-      propertyPath: m_Type
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 758761326108115588, guid: c31e31eed75ad5f458341913c916c969,
-        type: 3}
-      propertyPath: m_FillMethod
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 758761326108115588, guid: c31e31eed75ad5f458341913c916c969,
-        type: 3}
-      propertyPath: m_PreserveAspect
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1768045103363120180, guid: c31e31eed75ad5f458341913c916c969,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 6454845625791674132, guid: a2a35edaaaad29d4585617278e446b76,
-        type: 3}
     - target: {fileID: 4782686550582881056, guid: c31e31eed75ad5f458341913c916c969,
         type: 3}
       propertyPath: m_Name
@@ -5086,16 +5065,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8430759136356881306, guid: c31e31eed75ad5f458341913c916c969,
-        type: 3}
-      propertyPath: bFill
-      value: 
-      objectReference: {fileID: 1957299780}
-    - target: {fileID: 8430759136356881306, guid: c31e31eed75ad5f458341913c916c969,
-        type: 3}
-      propertyPath: bGreyedOut
-      value: 
-      objectReference: {fileID: 1076699550}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c31e31eed75ad5f458341913c916c969, type: 3}
 --- !u!1 &472010752
@@ -10396,18 +10365,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1076699550 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1768045103363120180, guid: c31e31eed75ad5f458341913c916c969,
-    type: 3}
-  m_PrefabInstance: {fileID: 470259193}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1078288678
 GameObject:
   m_ObjectHideFlags: 0
@@ -19226,18 +19183,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1957299780 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 758761326108115588, guid: c31e31eed75ad5f458341913c916c969,
-    type: 3}
-  m_PrefabInstance: {fileID: 470259193}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1966583431
 GameObject:
   m_ObjectHideFlags: 0
