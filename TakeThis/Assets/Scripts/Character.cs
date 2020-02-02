@@ -15,6 +15,7 @@ public class Character : MonoBehaviour
     public Sprite CharacterBack = null;
 
     public GameObject PatPatFx = null;
+    public GameObject HugFX = null;
 
     enum Facing
     {
@@ -258,6 +259,8 @@ public class Character : MonoBehaviour
         {
             if (this.availableBaby[index].Hug())
             {
+                this.HugFX.transform.position = this.availableBaby[index].transform.position + new Vector3(0, 0, -2);
+                this.HugFX.GetComponent<ParticleSystem>().Play();
                 break;
             }
         }
