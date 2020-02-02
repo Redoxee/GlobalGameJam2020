@@ -16,12 +16,14 @@ public class Baby : MonoBehaviour
     [SerializeField]
     private SpriteRenderer faceRenderer = null;
     private int currentFaceIndex = -1;
+    public int MoodLevel = -1;
 
     private const float MaxMood = 100f;
 
     private void Start()
     {
         this.manager = BabyManager.Instance;
+        this.manager.Register(this);
         this.Mood = 50 + Random.Range(-20, 20);
     }
 
@@ -108,6 +110,7 @@ public class Baby : MonoBehaviour
         int numberOfFaces = this.manager.Faces.Length;
         int faceIndex = Mathf.FloorToInt((this.Mood / Baby.MaxMood) * numberOfFaces);
         faceIndex = Mathf.Clamp(faceIndex, 0, numberOfFaces);
+        this.MoodLevel = faceIndex;
 
         if (this.currentFaceIndex != faceIndex)
         {
