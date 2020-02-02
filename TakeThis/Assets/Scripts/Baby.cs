@@ -29,7 +29,6 @@ public class Baby : MonoBehaviour
         this.Mood -= (Time.deltaTime/timeToFullySad) * Baby.MaxMood;
         this.Mood = Mathf.Clamp(this.Mood, 0f, Baby.MaxMood);
         this.UpdateFace();
-        Debug.Log(this.Mood);
 
         if (this.patCoolDown > 0.0f)
         {

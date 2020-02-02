@@ -5,6 +5,7 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     public Transform WorldTransform;
+    public CameraScript Camera;
 
     private List<GameObject> availableTackable = new List<GameObject>();
     private GameObject LastTackableMet = null;
@@ -48,6 +49,12 @@ public class Character : MonoBehaviour
         {
             this.availableBaby.Add(baby);
             this.LastBabyMet = baby;
+        }
+
+        CameraTarget camTarget = otherObject.GetComponent<CameraTarget>();
+        if (camTarget != null)
+        {
+            this.Camera.SetTarget(otherObject.transform);
         }
     }
 
