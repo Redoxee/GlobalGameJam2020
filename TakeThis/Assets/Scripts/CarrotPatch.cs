@@ -23,7 +23,7 @@ public class CarrotPatch : MonoBehaviour, Tackable.TackeWatcher
     StateDelegate[] statesUpdate = new StateDelegate[3];
 
     [SerializeField]
-    private Transform carrotSpawn;
+    private Transform carrotSpawn = null;
 
     [SerializeField]
     private Tackable Carrote = null;
@@ -38,8 +38,8 @@ public class CarrotPatch : MonoBehaviour, Tackable.TackeWatcher
 
         this.ResetCarrot();
 
-        this.currentState = States.WaitingForConsumption;
-        this.growthTimer = 0;
+        this.currentState = States.Growing;
+        this.growthTimer = Random.Range(0, this.TimeToGrow);
         this.PlantRenderer.sprite = this.CarrotGrowing;
     }
 
@@ -49,6 +49,7 @@ public class CarrotPatch : MonoBehaviour, Tackable.TackeWatcher
         this.Carrote.gameObject.SetActive(false);
         this.Carrote.transform.SetParent(this.carrotSpawn);
         this.Carrote.transform.localPosition = Vector3.zero;
+        this.Carrote.GetComponent<Collider2D>().enabled = false;
     }
 
     private void Update()
@@ -66,6 +67,7 @@ public class CarrotPatch : MonoBehaviour, Tackable.TackeWatcher
             this.Carrote.gameObject.SetActive(true);
             this.Carrote.GetComponent<SpriteRenderer>().enabled = false;
             this.PlantRenderer.sprite = this.CarrotReady;
+            this.Carrote.GetComponent<Collider2D>().enabled = true;
         }
     }
 
