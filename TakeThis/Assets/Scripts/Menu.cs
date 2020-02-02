@@ -22,14 +22,14 @@ public class Menu : MonoBehaviour {
         }
     }
 
-    public IEnumerator BlinkingText() 
+    public IEnumerator BlinkingText()
     {
-    while (isBlinking)
-    {
-        text.enabled = true;
-        yield return new WaitForSeconds(1);
-        text.enabled = false;
-        yield return new WaitForSeconds(.5f);
-    }
+        while (isBlinking)
+        {
+            text.enabled = true;
+            yield return new WaitForSeconds(1);
+            text.enabled = false;
+            yield return new WaitForSeconds(.5f);
+        }
     }
 }
