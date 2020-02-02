@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class Tackable : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public interface TackeWatcher
     {
-        
+        void OnTacken(Tackable tackable, object tacker);
+        void OnDropped(Tackable tackable, object dropper);
     }
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField]
+    private GameObject[] watchers = new GameObject[0];
+
+    public bool IsHeld
     {
-        
+        private set;
+        get;
+    }
+
+    public void NotifyTaken(object tacker)
+    {
+        this.IsHeld = true;
+        for (int index = 0; index < watchers.Length; ++index)
+        {
+            this.watchers[index].GetComponent<TackeWatcher>().OnTacken(this, tacker);
+        }
+    }
+
+    public void NotifyDropped(object dropper)
+    {
+        this.IsHeld = false;
+        for (int index = 0; index < this.watchers.Length; ++index)
+        {
+            this.watchers[index].GetComponent<TackeWatcher>().OnDropped(this, dropper);
+        }
     }
 }
