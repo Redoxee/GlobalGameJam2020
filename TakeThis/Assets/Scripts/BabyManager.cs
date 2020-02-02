@@ -85,11 +85,13 @@ public class BabyManager : MonoBehaviour
             this.NearEndText.gameObject.SetActive(true);
             if (mood == 0)
             {
-                this.NearEndText.text = $"Everybody is sad.\nAct FAST !\n{this.timerEnd:0.00}";
+                this.NearEndText.color = Color.red;
+                this.NearEndText.text = "Everybody is crying.\nAct FAST !\n{this.timerEnd:00}";
             }
             else
             {
-                this.NearEndText.text = $"Everybody is happy.\nKeep it that way !\n{this.timerEnd:0.00}";
+                this.NearEndText.color = Color.white;
+                this.NearEndText.text = "Everybody is HAPPY.\nKeep it that way !\n{this.timerEnd:00}";
             }
 
             this.timerEnd -= Time.deltaTime;
