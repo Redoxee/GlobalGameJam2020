@@ -14,6 +14,8 @@ public class Character : MonoBehaviour
     public Sprite CharacterLeft = null;
     public Sprite CharacterBack = null;
 
+    public GameObject PatPatFx = null;
+
     enum Facing
     {
         Front,
@@ -235,6 +237,8 @@ public class Character : MonoBehaviour
         {
             if (this.availableBaby[index].PatPat())
             {
+                this.PatPatFx.transform.position = this.availableBaby[index].transform.position +new Vector3(0,0,-2);
+                this.PatPatFx.GetComponent<ParticleSystem>().Play();
                 break;
             }
         }
