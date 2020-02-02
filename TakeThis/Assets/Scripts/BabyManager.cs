@@ -25,6 +25,9 @@ public class BabyManager : MonoBehaviour
     [SerializeField]
     public TextMeshProUGUI NearEndText = null;
 
+    public float TimeToSuperCry = 7;
+    public float SuperCryRadius = 3;
+
     public static BabyManager Instance
     {
         get

@@ -24,6 +24,8 @@ public class Baby : MonoBehaviour
     public ParticleSystem TearsFx = null;
     public ParticleSystem UpFx = null;
 
+    public float superCryTimer;
+
     private void Start()
     {
         this.manager = BabyManager.Instance;
@@ -74,6 +76,28 @@ public class Baby : MonoBehaviour
         }
 
         this.Mood = Mathf.Clamp(this.Mood, 0f, Baby.MaxMood);
+
+        if (this.currentFaceIndex == 0)
+        {
+            this.superCryTimer -= Time.deltaTime;
+            if (this.superCryTimer < 0)
+            {
+                this.StartSuperCry();
+
+                Collider2D[] results = Physics2D.OverlapCircleAll(this.transform.position, this.manager.SuperCryRadius);
+                for (int index = 0; index < results.Length; ++index)
+                {
+                    Baby babe = results[index].gameObject.GetComponent<Baby>();
+                    if (babe != null && babe != this)
+                    {
+                        babe.Mood -= 10;
+                        babe.Mood = Mathf.Clamp(babe.Mood, 0, 100);
+                    }
+                }
+
+                Debug.Log("Super cry " + results.Length);
+            }
+        }
     }
 
     public bool PatPat()
@@ -141,11 +165,17 @@ public class Baby : MonoBehaviour
             if (faceIndex == 0)
             {
                 this.TearsFx.Play();
+                this.StartSuperCry();
             }
             else
             {
                 this.TearsFx.Stop();
             }
         }
+    }
+
+    private void StartSuperCry()
+    {
+        this.superCryTimer = Random.Range(this.manager.TimeToSuperCry - 1 , this.manager.TimeToSuperCry);
     }
 }
