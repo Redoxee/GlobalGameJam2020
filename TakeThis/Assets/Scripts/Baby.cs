@@ -10,7 +10,7 @@ public class Baby : MonoBehaviour
     internal float Mood;
     private float hugCoolDown = -1;
 
-    public Sprite bGreyedOut;
+    public Image bGreyedOut;
     public Image bFill;
 
     [SerializeField]
@@ -36,6 +36,12 @@ public class Baby : MonoBehaviour
         if (this.hugCoolDown > 0.0f)
         {
             this.hugCoolDown -= Time.deltaTime;
+            this.bGreyedOut.enabled = true;
+            this.bFill.fillAmount += 1.0f/21.0f *Time.deltaTime;
+        } else
+        {
+            this.bGreyedOut.enabled = false;
+            this.bFill.fillAmount = 0.0f;
         }
     }
 
