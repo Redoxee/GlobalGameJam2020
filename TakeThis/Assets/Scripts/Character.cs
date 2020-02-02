@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
@@ -25,6 +26,9 @@ public class Character : MonoBehaviour
 
     private float patCoolDown = -1;
     public float PatTimer = 1.0f;
+    public Image aFill;
+    public Text patText;
+    public Image aGreyedOut;
 
     private List<GameObject> availableTackable = new List<GameObject>();
     private GameObject LastTackableMet = null;
@@ -55,9 +59,18 @@ public class Character : MonoBehaviour
 
         if (this.patCoolDown > 0.0f)
         {
+            patText.enabled = false;
+            aGreyedOut.enabled = true;
             this.patCoolDown -= Time.deltaTime;
+            this.aFill.fillAmount += 1.0f * Time.deltaTime;
+
+        } else
+        {
+            patText.enabled = true;
+            this.aFill.fillAmount = 0.0f;
+            aGreyedOut.enabled = false;
         }
-    }
+    }   
 
     private void LateUpdate()
     {
