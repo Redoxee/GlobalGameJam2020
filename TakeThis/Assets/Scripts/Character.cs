@@ -4,8 +4,24 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public Rigidbody2D Rigidbody;
+
     public Transform WorldTransform;
     public CameraScript Camera;
+    public SpriteRenderer CharacterRenderer = null;
+    public Sprite CharacterFront = null;
+    public Sprite CharacterLeft = null;
+    public Sprite CharacterBack = null;
+
+    enum Facing
+    {
+        Front,
+        Right,
+        Back,
+        Left,
+    }
+
+    private Facing currentlyFacing = Facing.Front;
 
     private float patCoolDown = -1;
     public float PatTimer = 1.0f;
@@ -13,7 +29,8 @@ public class Character : MonoBehaviour
     private List<GameObject> availableTackable = new List<GameObject>();
     private GameObject LastTackableMet = null;
     private GameObject CurrentHeld = null;
-    private Vector3 WantedRelativePos = new Vector3(0, 1,0);
+
+    private Vector3 WantedRelativePos = new Vector3(1, 0, 0);
     private float deadLift = .005f;
     private Vector3 wantedVelocity = Vector3.zero;
 
@@ -39,6 +56,65 @@ public class Character : MonoBehaviour
         if (this.patCoolDown > 0.0f)
         {
             this.patCoolDown -= Time.deltaTime;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        Vector2 velocity = this.Rigidbody.velocity;
+        Facing nextFace = this.currentlyFacing;
+
+        if (velocity.sqrMagnitude > .1)
+        {
+            Vector2 direction = velocity.normalized;
+            if (direction.y < -0.866)
+            {
+                nextFace = Facing.Front;
+            }
+            else if (direction.y > 0.866)
+            {
+                nextFace = Facing.Back;
+            }
+            else if (direction.x > 0)
+            {
+                nextFace = Facing.Right;
+            }
+            else
+            {
+                nextFace = Facing.Left;
+            }
+        }
+        else
+        {
+            nextFace = Facing.Front;
+        }
+
+        if (nextFace != this.currentlyFacing)
+        {
+            this.currentlyFacing = nextFace;
+
+            switch(nextFace)
+            {
+                case Facing.Front:
+                    this.CharacterRenderer.sprite = this.CharacterFront;
+                    this.CharacterRenderer.transform.localScale = new Vector3(1, 1, 1);
+                    break;
+                case Facing.Back:
+                    this.CharacterRenderer.sprite = this.CharacterBack;
+                    this.CharacterRenderer.transform.localScale = new Vector3(1, 1, 1);
+                    break;
+                case Facing.Right:
+                    this.CharacterRenderer.sprite = this.CharacterLeft;
+                    this.CharacterRenderer.transform.localScale = new Vector3(-1, 1, 1);
+                    this.WantedRelativePos = new Vector3(.9f, 1, 0);
+                    break;
+                case Facing.Left:
+                    this.CharacterRenderer.sprite = this.CharacterLeft;
+                    this.CharacterRenderer.transform.localScale = new Vector3(1, 1, 1);
+                    this.WantedRelativePos = new Vector3(-.9f, 1, 0);
+
+                    break;
+            }
         }
     }
 
@@ -72,7 +148,7 @@ public class Character : MonoBehaviour
         Tackable otherTackable = otherObject.GetComponent<Tackable>();
         if (otherTackable != null)
         {
-            if (this.LastTackableMet == otherTackable)
+            if (this.LastTackableMet == otherObject)
             {
                 this.LastTackableMet = null;
             }
