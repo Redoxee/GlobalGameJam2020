@@ -21,6 +21,7 @@ public class Baby : MonoBehaviour
     private const float MaxMood = 100f;
 
     public ParticleSystem HappyFx = null;
+    public ParticleSystem TearsFx = null;
     public ParticleSystem UpFx = null;
 
     private void Start()
@@ -29,6 +30,7 @@ public class Baby : MonoBehaviour
         this.manager.Register(this);
         this.Mood = 60 + Random.Range(-10, 10);
         this.HappyFx = this.transform.Find("FX_Happy").GetComponent<ParticleSystem>();
+        this.TearsFx = this.transform.Find("FX tear").GetComponent<ParticleSystem>();
         this.UpFx = this.transform.Find("FX_up1").GetComponent<ParticleSystem>();
     }
 
@@ -134,6 +136,15 @@ public class Baby : MonoBehaviour
             else
             {
                 this.HappyFx.Stop();
+            }
+
+            if (faceIndex == 0)
+            {
+                this.TearsFx.Play();
+            }
+            else
+            {
+                this.TearsFx.Stop();
             }
         }
     }
