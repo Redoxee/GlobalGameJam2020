@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Baby : MonoBehaviour
 {
     BabyManager manager;
 
     internal float Mood;
-    private float patCoolDown = -1;
     private float hugCoolDown = -1;
+
+    public Sprite bGreyedOut;
+    public Image bFill;
 
     [SerializeField]
     private SpriteRenderer faceRenderer = null;
@@ -31,11 +34,6 @@ public class Baby : MonoBehaviour
         this.UpdateFace();
         Debug.Log(this.Mood);
 
-        if (this.patCoolDown > 0.0f)
-        {
-            this.patCoolDown -= Time.deltaTime;
-        }
-
         if (this.hugCoolDown > 0.0f)
         {
             this.hugCoolDown -= Time.deltaTime;
@@ -44,18 +42,12 @@ public class Baby : MonoBehaviour
 
     public bool PatPat()
     {
-        if (this.patCoolDown > 0.0f)
-        {
-            return false;
-        }
-
         if (this.Mood >= Baby.MaxMood)
         {
             return false;
         }
 
         this.Mood += this.manager.PatBonus;
-        this.patCoolDown = this.manager.PatTimer;
         this.Mood = Mathf.Clamp(this.Mood, 0, Baby.MaxMood);
         this.UpdateFace();
         Debug.Log("PAT PAT!");

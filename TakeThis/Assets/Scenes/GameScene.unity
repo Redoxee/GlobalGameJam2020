@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1638,7 +1638,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10, y: 1, z: -10}
+  m_LocalPosition: {x: -10.4, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2488,7 +2488,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeToFullySad: 60
-  PatTimer: 1
   HugTimer: 20
   Faces:
   - {fileID: 21300000, guid: 9690b9a793844f148855dc86fe031582, type: 3}
@@ -2496,8 +2495,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d889d91b908199041b8375af295d5b30, type: 3}
   - {fileID: 21300000, guid: 66b4e03a64acc714daa8785d05a668c2, type: 3}
   - {fileID: 21300000, guid: 4547b74071c116a43bf1792af17b4b4d, type: 3}
-  PatBonus: 1
-  HugBonus: 10
+  PatBonus: 5
+  HugBonus: 15
 --- !u!1001 &1784172599
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3152,6 +3151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WorldTransform: {fileID: 1549039271}
+  PatTimer: 1
 --- !u!58 &1932950344
 CircleCollider2D:
   m_ObjectHideFlags: 0

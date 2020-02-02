@@ -6,6 +6,9 @@ public class Character : MonoBehaviour
 {
     public Transform WorldTransform;
 
+    private float patCoolDown = -1;
+    public float PatTimer = 1.0f;
+
     private List<GameObject> availableTackable = new List<GameObject>();
     private GameObject LastTackableMet = null;
     private GameObject CurrentHeld = null;
@@ -30,6 +33,11 @@ public class Character : MonoBehaviour
             {
                 this.wantedVelocity = Vector3.zero;
             }
+        }
+
+        if (this.patCoolDown > 0.0f)
+        {
+            this.patCoolDown -= Time.deltaTime;
         }
     }
 
@@ -119,6 +127,11 @@ public class Character : MonoBehaviour
             return;
         }
 
+        if (this.patCoolDown > 0.0f)
+        {
+            return;
+        }
+
         int numberOfbaby = this.availableBaby.Count;
         for (int index = 0; index < numberOfbaby; ++index)
         {
@@ -127,6 +140,8 @@ public class Character : MonoBehaviour
                 break;
             }
         }
+
+        this.patCoolDown = this.PatTimer;
     }
 
     public void CallToActionHug()

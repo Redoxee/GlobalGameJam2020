@@ -7,7 +7,6 @@ public class BabyManager : MonoBehaviour
     private static BabyManager instance = null;
 
     public float TimeToFullySad = 60.0f;
-    public float PatTimer = 1.0f;
     public float HugTimer = 20.0f;
     public Sprite[] Faces;
 
