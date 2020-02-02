@@ -21,6 +21,8 @@ public class Baby : MonoBehaviour
     private const float MaxMood = 100f;
 
     public ParticleSystem HappyFx = null;
+    public ParticleSystem TearsFx = null;
+    public ParticleSystem UpFx = null;
 
     private void Start()
     {
@@ -28,6 +30,8 @@ public class Baby : MonoBehaviour
         this.manager.Register(this);
         this.Mood = 60 + Random.Range(-10, 10);
         this.HappyFx = this.transform.Find("FX_Happy").GetComponent<ParticleSystem>();
+        this.TearsFx = this.transform.Find("FX tear").GetComponent<ParticleSystem>();
+        this.UpFx = this.transform.Find("FX_up1").GetComponent<ParticleSystem>();
     }
 
     private void Update()
@@ -62,6 +66,7 @@ public class Baby : MonoBehaviour
                     {
                         tackable.NotifyTaken(this);
                         this.Mood += this.manager.CarrotBonus;
+                        this.UpFx.Play();
                         break;
                     }
                 }
@@ -80,6 +85,9 @@ public class Baby : MonoBehaviour
 
         this.Mood += this.manager.PatBonus;
         this.Mood = Mathf.Clamp(this.Mood, 0, Baby.MaxMood);
+
+        this.UpFx.Play();
+
         this.UpdateFace();
         Debug.Log("PAT PAT!");
 
@@ -100,6 +108,7 @@ public class Baby : MonoBehaviour
 
         this.Mood += this.manager.HugBonus;
         this.hugCoolDown = this.manager.HugTimer;
+        this.UpFx.Play();
 
         this.Mood = Mathf.Clamp(this.Mood, 0, Baby.MaxMood);
         this.UpdateFace();
@@ -127,6 +136,15 @@ public class Baby : MonoBehaviour
             else
             {
                 this.HappyFx.Stop();
+            }
+
+            if (faceIndex == 0)
+            {
+                this.TearsFx.Play();
+            }
+            else
+            {
+                this.TearsFx.Stop();
             }
         }
     }
