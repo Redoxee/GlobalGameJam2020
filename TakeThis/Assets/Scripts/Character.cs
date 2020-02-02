@@ -17,6 +17,8 @@ public class Character : MonoBehaviour
     public GameObject PatPatFx = null;
     public GameObject HugFX = null;
 
+    public GameObject glow = null;
+
     enum Facing
     {
         Front,
@@ -156,6 +158,18 @@ public class Character : MonoBehaviour
         {
             this.Camera.SetTarget(otherObject.transform);
         }
+
+        if (this.LastTackableMet != null)
+        {
+            this.glow.transform.SetParent(this.LastTackableMet.transform, true);
+            this.glow.transform.localPosition = Vector3.zero;
+            this.glow.SetActive(true);
+        }
+        else
+        {
+            this.glow.transform.SetParent(this.transform, true);
+            this.glow.SetActive(false);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -177,6 +191,18 @@ public class Character : MonoBehaviour
             if (this.LastTackableMet == null && this.availableTackable.Count > 0)
             {
                 this.LastTackableMet = this.availableTackable[0];
+            }
+
+            if (this.LastTackableMet != null)
+            {
+                this.glow.transform.SetParent(this.LastTackableMet.transform, true);
+                this.glow.transform.localPosition = Vector3.zero;
+                this.glow.SetActive(true);
+            }
+            else
+            {
+                this.glow.transform.SetParent(this.transform, true);
+                this.glow.SetActive(false);
             }
         }
 
