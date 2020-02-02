@@ -162,7 +162,15 @@ public class Character : MonoBehaviour
         if (this.LastTackableMet != null)
         {
             this.glow.transform.SetParent(this.LastTackableMet.transform, true);
-            this.glow.transform.localPosition = Vector3.zero;
+            if (this.LastTackableMet.GetComponent<Carrot>() != null)
+            {
+                this.glow.transform.localPosition = new Vector3(0, 2, 0);
+            }
+            else
+            {
+                this.glow.transform.localPosition = new Vector3(0, 0, 0);
+            }
+
             this.glow.SetActive(true);
         }
         else
@@ -196,7 +204,14 @@ public class Character : MonoBehaviour
             if (this.LastTackableMet != null)
             {
                 this.glow.transform.SetParent(this.LastTackableMet.transform, true);
-                this.glow.transform.localPosition = Vector3.zero;
+                if (this.LastTackableMet.GetComponent<Carrot>() != null)
+                {
+                    this.glow.transform.localPosition = new Vector3(0, 2, 0);
+                }
+                else
+                {
+                    this.glow.transform.localPosition = new Vector3(0, 0, 0);
+                }
                 this.glow.SetActive(true);
             }
             else
