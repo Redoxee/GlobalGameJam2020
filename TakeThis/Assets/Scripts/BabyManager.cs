@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BabyManager : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class BabyManager : MonoBehaviour
     private bool isCountingDown = false;
 
     private List<Baby> babies = new List<Baby>();
+
+    [SerializeField]
+    public TextMeshProUGUI NearEndText = null;
 
     public static BabyManager Instance
     {
@@ -59,20 +63,35 @@ public class BabyManager : MonoBehaviour
         bool allTheSame = true;
         for (int index = 0; index < this.babies.Count; ++index)
         {
-            if (this.babies[0].MoodLevel != mood)
+            if (this.babies[index].MoodLevel != mood)
             {
                 allTheSame = false;
                 break;
             }
+        }
+        if (mood != 0 && mood != this.Faces.Length - 1)
+        {
+            allTheSame = false;
         }
 
         if (allTheSame && !this.isCountingDown)
         {
             this.isCountingDown = true;
             this.timerEnd = this.TimeToEnd;
+            Debug.Log("StartingCountDown");
         }
         else if (allTheSame)
         {
+            this.NearEndText.gameObject.SetActive(true);
+            if (mood == 0)
+            {
+                this.NearEndText.text = $"Everybody is sad.\nAct FAST !\n{this.timerEnd:0.00}";
+            }
+            else
+            {
+                this.NearEndText.text = $"Everybody is happy.\nKeep it that way !\n{this.timerEnd:0.00}";
+            }
+
             this.timerEnd -= Time.deltaTime;
 
             if (timerEnd <= 0)
@@ -81,12 +100,17 @@ public class BabyManager : MonoBehaviour
                 {
                     UnityEngine.SceneManagement.SceneManager.LoadScene("LooseScene");
                 }
-                else if (mood == 4)
+                else
                 {
                     UnityEngine.SceneManagement.SceneManager.LoadScene("WinScene");
                 }
             }
         }
 
+        if (!allTheSame)
+        {
+            this.isCountingDown = false;
+            this.NearEndText.gameObject.SetActive(false);
+        }
     }
 }
