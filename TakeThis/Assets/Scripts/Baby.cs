@@ -20,11 +20,14 @@ public class Baby : MonoBehaviour
 
     private const float MaxMood = 100f;
 
+    public ParticleSystem HappyFx = null;
+
     private void Start()
     {
         this.manager = BabyManager.Instance;
         this.manager.Register(this);
         this.Mood = 60 + Random.Range(-10, 10);
+        this.HappyFx = this.transform.Find("FX_Happy").GetComponent<ParticleSystem>();
     }
 
     private void Update()
@@ -109,13 +112,22 @@ public class Baby : MonoBehaviour
     {
         int numberOfFaces = this.manager.Faces.Length;
         int faceIndex = Mathf.FloorToInt((this.Mood / Baby.MaxMood) * numberOfFaces);
-        faceIndex = Mathf.Clamp(faceIndex, 0, numberOfFaces);
+        faceIndex = Mathf.Clamp(faceIndex, 0, numberOfFaces - 1);
         this.MoodLevel = faceIndex;
 
         if (this.currentFaceIndex != faceIndex)
         {
             this.currentFaceIndex = faceIndex;
             this.faceRenderer.sprite = this.manager.Faces[faceIndex];
+
+            if (faceIndex == 4)
+            {
+                this.HappyFx.Play();
+            }
+            else
+            {
+                this.HappyFx.Stop();
+            }
         }
     }
 }
