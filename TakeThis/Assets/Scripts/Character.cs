@@ -5,6 +5,7 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     public Transform WorldTransform;
+    public CameraScript Camera;
 
     private float patCoolDown = -1;
     public float PatTimer = 1.0f;
@@ -56,6 +57,12 @@ public class Character : MonoBehaviour
         {
             this.availableBaby.Add(baby);
             this.LastBabyMet = baby;
+        }
+
+        CameraTarget camTarget = otherObject.GetComponent<CameraTarget>();
+        if (camTarget != null)
+        {
+            this.Camera.SetTarget(otherObject.transform);
         }
     }
 
