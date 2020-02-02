@@ -8,13 +8,13 @@ public class BabyManager : MonoBehaviour
     private static BabyManager instance = null;
 
     public float GrabRadius = 2;
-    public float TimeToFullySad = 60.0f;
-    public float HugTimer = 20.0f;
+    public float TimeToFullySad = 100.0f;
+    public float HugTimer = 25.0f;
     public Sprite[] Faces;
 
-    public int PatBonus = 1;
-    public int HugBonus = 10;
-    public int CarrotBonus = 60;
+    public int PatBonus = 5;
+    public int HugBonus = 15;
+    public int CarrotBonus = 40;
     
     public float TimeToEnd = 15;
     private float timerEnd;

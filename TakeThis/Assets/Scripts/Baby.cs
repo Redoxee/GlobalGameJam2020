@@ -24,7 +24,7 @@ public class Baby : MonoBehaviour
     {
         this.manager = BabyManager.Instance;
         this.manager.Register(this);
-        this.Mood = 50 + Random.Range(-20, 20);
+        this.Mood = 60 + Random.Range(-10, 10);
     }
 
     private void Update()
@@ -38,7 +38,7 @@ public class Baby : MonoBehaviour
         {
             this.hugCoolDown -= Time.deltaTime;
             this.bGreyedOut.enabled = true;
-            this.bFill.fillAmount += 1.0f/21.0f *Time.deltaTime;
+            this.bFill.fillAmount += 1.0f/25.0f *Time.deltaTime;
         } else
         {
             this.bGreyedOut.enabled = false;
