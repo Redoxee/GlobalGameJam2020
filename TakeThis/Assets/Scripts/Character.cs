@@ -30,9 +30,9 @@ public class Character : MonoBehaviour
     public Text patText;
     public Image aGreyedOut;
 
-    private List<GameObject> availableTackable = new List<GameObject>();
-    private GameObject LastTackableMet = null;
-    private GameObject CurrentHeld = null;
+    private List<Tackable> availableTackable = new List<Tackable>();
+    private Tackable LastTackableMet = null;
+    private Tackable CurrentHeld = null;
 
     private Vector3 WantedRelativePos = new Vector3(1, 0, 0);
     private float deadLift = .005f;
@@ -135,10 +135,10 @@ public class Character : MonoBehaviour
     {
         GameObject otherObject = other.gameObject;
         Tackable otherTackable = otherObject.GetComponent<Tackable>();
-        if (otherTackable != null && !this.availableTackable.Contains(otherObject))
+        if (otherTackable != null && !this.availableTackable.Contains(otherTackable))
         {
-            this.LastTackableMet = otherObject;
-            this.availableTackable.Add(otherObject);
+            this.LastTackableMet = otherTackable;
+            this.availableTackable.Add(otherTackable);
         }
 
         Baby baby = otherObject.GetComponent<Baby>();
@@ -161,14 +161,14 @@ public class Character : MonoBehaviour
         Tackable otherTackable = otherObject.GetComponent<Tackable>();
         if (otherTackable != null)
         {
-            if (this.LastTackableMet == otherObject)
+            if (this.LastTackableMet == otherTackable)
             {
                 this.LastTackableMet = null;
             }
 
-            if (this.availableTackable.Contains(otherObject))
+            if (this.availableTackable.Contains(otherTackable))
             {
-                this.availableTackable.Remove(otherObject);
+                this.availableTackable.Remove(otherTackable);
             }
 
             if (this.LastTackableMet == null && this.availableTackable.Count > 0)
@@ -206,11 +206,13 @@ public class Character : MonoBehaviour
                 this.CurrentHeld = this.LastTackableMet;
                 this.LastTackableMet.transform.SetParent(this.transform, true);
                 this.wantedVelocity = Vector3.zero;
+                this.LastTackableMet.NotifyTaken(this);
             }
         }
         else
         {
             this.CurrentHeld.transform.SetParent(this.WorldTransform, true);
+            this.CurrentHeld.NotifyDropped(this);
             this.CurrentHeld = null;
             this.wantedVelocity = Vector3.zero;
         }

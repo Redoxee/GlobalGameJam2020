@@ -30,13 +30,34 @@ public class Baby : MonoBehaviour
         float timeToFullySad = this.manager.TimeToFullySad;
         timeToFullySad = Mathf.Max(timeToFullySad, 1.0f);
         this.Mood -= (Time.deltaTime/timeToFullySad) * Baby.MaxMood;
-        this.Mood = Mathf.Clamp(this.Mood, 0f, Baby.MaxMood);
         this.UpdateFace();
 
         if (this.hugCoolDown > 0.0f)
         {
             this.hugCoolDown -= Time.deltaTime;
         }
+
+        if (this.Mood < 90 && !this.GetComponent<Tackable>().IsHeld)
+        {
+            LayerMask carrotMask = LayerMask.GetMask("Carrot");
+            Collider2D[] results = Physics2D.OverlapCircleAll(this.transform.position, this.manager.GrabRadius);
+            for (int index = 0; index < results.Length; ++index)
+            {
+                Carrot carrot = results[index].gameObject.GetComponent<Carrot>();
+                if (carrot != null)
+                {
+                    Tackable tackable = carrot.GetComponent<Tackable>();
+                    if (tackable != null && !tackable.IsHeld)
+                    {
+                        tackable.NotifyTaken(this);
+                        this.Mood += this.manager.CarrotBonus;
+                        break;
+                    }
+                }
+            }
+        }
+
+        this.Mood = Mathf.Clamp(this.Mood, 0f, Baby.MaxMood);
     }
 
     public bool PatPat()
